@@ -1,0 +1,34 @@
+# Virtual Environment
+venv/
+
+# Local Python Environment
+.venv/
+env/
+ENV/
+
+# Large Datasets
+dataset/
+ham10000_raw/
+archive.zip
+
+# Python / Keras caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+.keras/
+
+# Logs and Plots
+training_log.csv
+training_history.png
+confusion_matrix.png
+
+# Large Model Weights
+models/*.keras
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+~$*.docx
