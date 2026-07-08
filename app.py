@@ -181,15 +181,30 @@ html, body, [class*="css"], .stApp {
 # ==============================================================================
 MODEL_PATH = os.path.join("models", "skin_model.keras")
 
+# Paste your direct download link here (Hugging Face, Dropbox, Google Drive direct, or GitHub Release)
+# Or set it in your Streamlit Secrets as: MODEL_URL = "your_link"
+MODEL_URL = st.secrets.get("MODEL_URL", "YOUR_DIRECT_DOWNLOAD_LINK_HERE")
 
 @st.cache_resource
 def load_model():
     """
     Load the trained SkinCareAI model from disk.
-    Cached with st.cache_resource so it loads only once per session.
+    If the model weights are not present, attempt to download them from MODEL_URL.
     """
     if not os.path.exists(MODEL_PATH):
-        return None
+        if MODEL_URL == "YOUR_DIRECT_DOWNLOAD_LINK_HERE":
+            return None
+        
+        os.makedirs(os.path.dirname(MODEL_PATH), exist_ok=True)
+        with st.spinner("📥 Downloading pre-trained model weights (~210MB)... This will only happen once."):
+            import urllib.request
+            try:
+                urllib.request.urlretrieve(MODEL_URL, MODEL_PATH)
+                st.success("🎉 Model weights downloaded successfully!")
+            except Exception as e:
+                st.error(f"❌ Failed to download model weights: {e}")
+                return None
+                
     return keras.models.load_model(MODEL_PATH)
 
 
