@@ -222,7 +222,7 @@ def plot_training_history(history, fine_tune_history=None, output_path="training
     plt.savefig(output_path, dpi=150, bbox_inches="tight")
     plt.close()
 
-    print(f"\n  [✓] Training history saved → {output_path}")
+    print(f"\n  [OK] Training history saved -> {output_path}")
 
 
 # ==============================================================================
@@ -251,7 +251,7 @@ def evaluate_model(model, val_dataset, class_names):
     all_pred   = []
 
     for images, labels in val_dataset:
-        preds = model.predict(images, verbose=0)
+        preds = model(images, training=False).numpy()
         all_true.extend(labels.numpy())
         all_pred.extend(np.argmax(preds, axis=1))
 
@@ -284,7 +284,7 @@ def evaluate_model(model, val_dataset, class_names):
     plt.savefig("confusion_matrix.png", dpi=150, bbox_inches="tight")
     plt.close()
 
-    print(f"  [✓] Confusion matrix saved → confusion_matrix.png")
+    print(f"  [OK] Confusion matrix saved -> confusion_matrix.png")
     print("=" * 70 + "\n")
 
 

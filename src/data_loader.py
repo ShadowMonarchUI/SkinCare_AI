@@ -188,6 +188,7 @@ def build_dataset(data_dir, subset="train", batch_size=BATCH_SIZE):
         dataset = dataset.shuffle(buffer_size=1000, seed=42)
     else:
         dataset = raw_dataset.map(preprocess_image_val, num_parallel_calls=AUTOTUNE)
+        dataset = dataset.cache()  # Cache validation preprocessed images in RAM
 
     # -------------------------------------------------------------------------
     # Batch & Prefetch

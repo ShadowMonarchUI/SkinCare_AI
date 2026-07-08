@@ -340,7 +340,7 @@ with result_col:
                 # -------------------------------------------------------------
                 # Prediction
                 # -------------------------------------------------------------
-                prediction   = model.predict(img_tensor, verbose=0)
+                prediction   = model(img_tensor, training=False).numpy()
                 predicted_idx = int(np.argmax(prediction))
                 confidence    = float(np.max(prediction))
                 predicted_cls = CLASS_NAMES[predicted_idx]
